@@ -53,6 +53,17 @@ function handleError(res, reason, message, code) {
 }
 
 // Conexión a todas la rutas.
-// app.use('/api', require('./routes/ejercicio.route'));
-// app.use('/api', require('./routes/rutinas.route'));
 app.use('/api', require('./routes/usuarios.route'));
+app.use('/api', require('./routes/serviciosProveedor.route'));
+app.use('/api', require('./routes/padecimientos.route'));
+app.use('/api', require('./routes/raza.route'));
+app.use('/api', require('./routes/vacunas.route'));
+app.use('/api', require('./routes/tipoMascotas.route'));
+app.use('/api', require('./routes/tipoServicios.route'));
+app.use('/api', require('./routes/registrarMascotas.route'));
+app.use('/api', require('./routes/solicitudServicios.route'));
+app.use('/api', require('./routes/serviciosCliente.route'));
+app.use('/api', require('./routes/metodosDePago.route'));
+app.use('/api', require('./routes/provedorEstado.route'));
+app.use('/api', require('./routes/registrarVacunaMascota.route'));
+app.use('/api', require('./routes/registrarPadecimientoMascota.route'));
