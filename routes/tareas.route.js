@@ -1,10 +1,13 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const tareas = require('../models/tareas.model');
+const Tareas = require('../models/tareas.model');
 
 
 router.post('/registrar-tarea', (req, res) => {
+
+    console.log(req.body.tarea);
+    // console.log(req.body.fechaTarea);
 
 
     let nuevaTarea = new Tareas({
@@ -18,12 +21,12 @@ router.post('/registrar-tarea', (req, res) => {
     nuevaTarea.save((error) => { //.save() para que esa información se intente guardar en la base de datos.
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al agregar el padecimiento',
+                msj: 'Ocurrió un error al agregar la tarea',
                 error
             });
         } else {
             res.json({
-                msj: 'El nuevo padecimiento se agregó correctamente'
+                msj: 'La nueva tarea se agregó correctamente'
             });
         }
 
@@ -33,15 +36,15 @@ router.post('/registrar-tarea', (req, res) => {
 
 router.get('/listar-tarea', (req, res) => {
 
-    Tareas.find((error, ListaDeTareas) => {
+    Tareas.find((error, tareas) => {
         if (error) {
             res.json({
-                msj: 'Ocurrió un error al listar las razas',
+                msj: 'Ocurrió un error al listar la tarea',
                 error
             });
         } else {
             res.json({
-                ListaDeTareas
+                tareas
             });
         }
     });
@@ -50,21 +53,18 @@ router.get('/listar-tarea', (req, res) => {
 
 router.put('/modificar-tarea', (req, res) => {
 
-    Tareas.updateOne({ _id: req.body._id }, {
+    Tareas.updateOne({ tarea: req.body.tarea }, {
         $set: req.body,
-        nombreUsuario: req.body.nombreUsuario,
-        tipoUsuario: req.body.tipoUsuario,
+
     }, (error) => {
         if (error) {
-            Bitacora.guardarAccion(new Date(), "Error al modificar un tarea", req.body.nombreUsuario, req.body.tipoUsuario);
             res.json({
-                msj: 'El tareas no se pudo modificar',
+                msj: 'La tarea no se pudo modificar',
                 error
             });
         } else {
-            Bitacora.guardarAccion(new Date(), "Modificar un tarea", req.body.nombreUsuario, req.body.tipoUsuario);
             res.json({
-                msj: 'El tareas se modificó correctamente'
+                msj: 'La tarea se modificó correctamente'
             });
         }
     });
@@ -72,17 +72,15 @@ router.put('/modificar-tarea', (req, res) => {
 
 
 router.delete('/eliminar-tarea', (req, res) => {
-    Tareas.deleteOne({ _id: req.body._id }, (error) => {
+    Tareas.deleteOne({ tarea: req.body.tarea }, (error) => {
         if (error) {
-            Bitacora.guardarAccion(new Date(), "Error al eliminar un tarea", req.body.nombreUsuario, req.body.tipoUsuario);
             res.json({
-                msj: 'Ocurrió un error al eliminar el tareas',
+                msj: 'Ocurrió un error al eliminar la tarea',
                 error
             });
         } else {
-            Bitacora.guardarAccion(new Date(), "Eliminar un tarea", req.body.nombreUsuario, req.body.tipoUsuario);
             res.json({
-                msj: 'Padecimiento eliminado correctamente'
+                msj: 'tarea eliminada correctamente'
             });
         }
     });
