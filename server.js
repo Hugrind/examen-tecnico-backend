@@ -53,4 +53,4 @@ function handleError(res, reason, message, code) {
 }
 
 // Conexión a todas la rutas.
-// app.use('/api', require('./routes/usuarios.route'));
+app.use('/api', require('./routes/tareas.route'));
